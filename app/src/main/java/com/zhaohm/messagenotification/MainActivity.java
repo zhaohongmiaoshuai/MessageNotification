@@ -28,9 +28,11 @@ public class MainActivity extends Activity {
                     "channel_name",
                     NotificationManager.IMPORTANCE_HIGH);
             notificationManager.createNotificationChannel(channel);
-            notification = new NotificationCompat.Builder(this,String.valueOf(1));
+            notification = new NotificationCompat.Builder(this,String.valueOf(1)).setDefaults(Notification.DEFAULT_ALL);
+            notification.setPriority(NotificationCompat.PRIORITY_MAX);
         }else{
-            notification = new NotificationCompat.Builder(this,"haha");
+            notification = new NotificationCompat.Builder(this,"haha").setDefaults(Notification.DEFAULT_ALL);
+            notification.setPriority(NotificationCompat.PRIORITY_MAX);
         }
         // 设置打开该通知，该通知自动消失
         notification.setAutoCancel(true);
@@ -46,7 +48,6 @@ public class MainActivity extends Activity {
         notification.setContentText("点击查看详情！");
         //设置发送时间
         notification.setWhen(System.currentTimeMillis());
-        notification.setPriority(NotificationCompat.PRIORITY_DEFAULT);
         // 创建一个启动其他Activity的Intent
         Intent intent = new Intent(MainActivity.this
                 , MessageActivity.class);
@@ -56,6 +57,9 @@ public class MainActivity extends Activity {
         notification.setContentIntent(pi);
         Notification C =notification.build();
         //发送通知
+//        C.defaults = Notification.DEFAULT_SOUND
+//                | Notification.DEFAULT_VIBRATE
+//                | Notification.DEFAULT_LIGHTS;  // 设置为铃声、震动、呼吸灯闪烁都要
         notificationManager.notify(NOTIFYID, C);
     }
 }
